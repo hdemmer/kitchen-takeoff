@@ -103,10 +103,10 @@ namespace Kitchen
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
+            GraphicsDevice.Clear(Color.Black);
+
             _total_frames++;
             Console.WriteLine(_fps);
-
-            GraphicsDevice.Clear(Color.Black);
 
             base.Draw(gameTime);
         }

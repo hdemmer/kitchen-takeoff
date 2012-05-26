@@ -17,6 +17,7 @@ namespace Kitchen
         public Vector3 origin;
         public Vector3 rotation;
         public Vector3 scale;
+        public int meshIndex;
     };
 
     /// <summary>
@@ -27,17 +28,18 @@ namespace Kitchen
         public Model houseModel;
         House[] houses;
         Effect effect;
-        Game game;
-
+      
+        BigSky sky;
         
         double time;
 
 
-        public World(Game theGame)
-            : base(theGame)
+        public World(Game game)
+            : base(game)
         {
-            game = theGame;
-            // TODO: Construct any child components here
+          
+            sky = new BigSky(game);
+            game.Components.Add(sky);
         }
 
         /// <summary>
@@ -47,7 +49,7 @@ namespace Kitchen
         /// 
         public override void Initialize()
         {
-            int num = 10000;
+            int num = 5000;
 
             Random random = new Random(num + 1);
 
@@ -56,9 +58,11 @@ namespace Kitchen
             {
                 House house = new House();
 
-                house.origin = new Vector3(random.Next(-50,50), random.Next(-20,0), random.Next(-50,50));
+                house.origin = new Vector3(random.Next(-5000,5000), random.Next(-50,0), random.Next(-5000,5000));
                 house.rotation = new Vector3((float)random.NextDouble() * MathHelper.Pi, (float)random.NextDouble() / 100.0f, (float)random.NextDouble() / 100.0f);
-                house.scale = new Vector3((float)random.NextDouble() + 1, 2*(float)random.NextDouble() + 1, (float)random.NextDouble() + 1);
+                house.scale = (new Vector3((float)random.NextDouble() + 1, 2*(float)random.NextDouble() + 1, (float)random.NextDouble() + 1));
+
+                house.meshIndex = random.Next(0, 15);
 
                 houses.SetValue(house, i);
             }
@@ -68,9 +72,9 @@ namespace Kitchen
 
         protected override void LoadContent()
         {
-            effect = game.Content.Load<Effect>("Hades");
+            effect = Game.Content.Load<Effect>("Hades");
 
-            houseModel = game.Content.Load<Model>("box");
+            houseModel = Game.Content.Load<Model>("greebles");
             foreach (ModelMesh mesh in houseModel.Meshes)
             {
                 foreach (ModelMeshPart part in mesh.MeshParts)
@@ -96,7 +100,7 @@ namespace Kitchen
 
         public override void Draw(GameTime gameTime)
         {
-            Vector3 cameraPosition = new Vector3(0, 10+MathHelper.SmoothStep(0,1, (float)(time / 10000)), 50 - 1 * (float)(time / 1000));
+            Vector3 cameraPosition = new Vector3(0, 250+MathHelper.SmoothStep(0,50, (float)(time / 10000)), 5000 - 100 * (float)(time / 1000));
             Vector3 lookAt = new Vector3(0, -0.2f, -1);
             float aspectRatio = GraphicsDevice.Viewport.AspectRatio;
 
@@ -111,6 +115,8 @@ namespace Kitchen
 
             foreach (House house in houses)
             {
+                float lag = house.origin.Z - cameraPosition.Z;
+                int lagComp = (lag % 10000);
 
                 Model myModel = houseModel;
 
@@ -119,13 +125,9 @@ namespace Kitchen
                 world *= Matrix.CreateFromYawPitchRoll(house.rotation.X, house.rotation.Y, house.rotation.Z);
                 world *= Matrix.CreateTranslation(house.origin.X, house.origin.Y, house.origin.Z);
 
-                foreach (ModelMesh mesh in myModel.Meshes)
-                {
-                    effect.Parameters["World"].SetValue(world);
+                effect.Parameters["World"].SetValue(world);
 
-                    // Draw the mesh, using the effects set above.
-                    mesh.Draw();
-                }
+                myModel.Meshes[house.meshIndex].Draw();
             }
 
             base.Draw(gameTime);

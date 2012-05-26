@@ -6,3 +6,5 @@ d:\users\dermangold\documents\visual studio 2010\Projects\Kitchen\Kitchen\Kitche
 d:\users\dermangold\documents\visual studio 2010\Projects\Kitchen\Kitchen\Kitchen\obj\x86\Debug\Kitchen.pdb
 d:\users\dermangold\documents\visual studio 2010\Projects\Kitchen\Kitchen\Kitchen\bin\x86\Debug\Content\box.xnb
 d:\Users\DerMangold\Documents\Visual Studio 2010\Projects\Kitchen\Kitchen\Kitchen\bin\x86\Debug\Content\Hades.xnb
+d:\Users\DerMangold\Documents\Visual Studio 2010\Projects\Kitchen\Kitchen\Kitchen\bin\x86\Debug\Content\greebles.xnb
+d:\Users\DerMangold\Documents\Visual Studio 2010\Projects\Kitchen\Kitchen\Kitchen\bin\x86\Debug\Content\BigSky.xnb

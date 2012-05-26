@@ -47,11 +47,11 @@ float4 PixelShaderFunction(VertexShaderOutput input) : COLOR0
 	float depth = input.Pscreen.z;
 	float height = input.Pscreen.y;
 
-	float fogStart = 4.0f;
-	float fogEnd = 50.0f;
+	float fogStart = 40.0f;
+	float fogEnd = 5000.0f;
 
 	float3 buildingColor = float3(0.0f,0.0f,0.0f);
-	float3 fogColor = 0.2f.xxx;
+	float3 fogColor = 0.5f.xxx;
 
 	float l = saturate((depth - fogStart) / (fogEnd - fogStart));
     return float4(lerp(buildingColor,fogColor,l), 1);
