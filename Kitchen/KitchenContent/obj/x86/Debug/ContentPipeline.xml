@@ -28,7 +28,7 @@
       <Processor>EffectProcessor</Processor>
       <Options>None</Options>
       <Output>d:\Users\DerMangold\Documents\Visual Studio 2010\Projects\Kitchen\Kitchen\Kitchen\bin\x86\Debug\Content\Hades.xnb</Output>
-      <Time>2012-05-26T23:21:40.7603455+02:00</Time>
+      <Time>2012-05-27T13:13:08.4767703+02:00</Time>
     </Item>
     <Item>
       <Source>greebles.fbx</Source>
@@ -57,7 +57,7 @@
       <Processor>EffectProcessor</Processor>
       <Options>None</Options>
       <Output>d:\Users\DerMangold\Documents\Visual Studio 2010\Projects\Kitchen\Kitchen\Kitchen\bin\x86\Debug\Content\BigSky.xnb</Output>
-      <Time>2012-05-27T11:03:07.2584674+02:00</Time>
+      <Time>2012-05-27T13:17:18.0910474+02:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>

@@ -31,7 +31,7 @@ float4 PixelShaderFunction(VertexShaderOutput input) : COLOR0
 {
     // TODO: add your pixel shader code here.
 
-	float y = (1 -input.ScreenCoords.y) * 0.4 + 0.3;
+	float y = (1 -input.ScreenCoords.y) * 0.4 + 0.28;
     return float4(y, y, y, 1);
 }
 

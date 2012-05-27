@@ -27,6 +27,10 @@ namespace Kitchen
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
+            graphics.PreferredBackBufferWidth = 1800; 
+            graphics.PreferredBackBufferHeight = 800;
+            graphics.PreferMultiSampling = true;
+            
             Content.RootDirectory = "Content";
         }
 

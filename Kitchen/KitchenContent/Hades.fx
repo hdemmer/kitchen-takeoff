@@ -51,10 +51,16 @@ float4 PixelShaderFunction(VertexShaderOutput input) : COLOR0
 	float fogEnd = 5000.0f;
 
 	float3 buildingColor = float3(0.0f,0.0f,0.0f);
-	float3 fogColor = 0.5f.xxx;
+	float3 fogColor = 0.5f ;
 
 	float l = saturate((depth - fogStart) / (fogEnd - fogStart));
-    return float4(lerp(buildingColor,fogColor,l), 1);
+
+	float noise = input.Pscreen.x + input.Pscreen.y*100;
+
+	float3 offset = float3(cos(noise),cos(noise + 2.1),cos(noise + 4.2));
+    float4 outColor = float4(lerp(buildingColor,fogColor,l) + offset * (1.0f/256.0f), 1);
+
+	return outColor;
 }
 
 technique Hades1
