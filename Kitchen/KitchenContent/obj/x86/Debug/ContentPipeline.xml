@@ -57,7 +57,7 @@
       <Processor>EffectProcessor</Processor>
       <Options>None</Options>
       <Output>d:\Users\DerMangold\Documents\Visual Studio 2010\Projects\Kitchen\Kitchen\Kitchen\bin\x86\Debug\Content\BigSky.xnb</Output>
-      <Time>2012-05-27T00:05:38.4232112+02:00</Time>
+      <Time>2012-05-27T11:03:07.2584674+02:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
@@ -65,10 +65,10 @@
       <TargetProfile>Reach</TargetProfile>
       <BuildConfiguration>Debug</BuildConfiguration>
       <CompressContent>false</CompressContent>
-      <RootDirectory>d:\Users\DerMangold\Documents\Visual Studio 2010\Projects\Kitchen\Kitchen\KitchenContent\</RootDirectory>
-      <LoggerRootDirectory>d:\Users\DerMangold\Documents\Visual Studio 2010\Projects\Kitchen\Kitchen\Kitchen\</LoggerRootDirectory>
-      <IntermediateDirectory>d:\Users\DerMangold\Documents\Visual Studio 2010\Projects\Kitchen\Kitchen\KitchenContent\obj\x86\Debug\</IntermediateDirectory>
-      <OutputDirectory>d:\Users\DerMangold\Documents\Visual Studio 2010\Projects\Kitchen\Kitchen\Kitchen\bin\x86\Debug\Content\</OutputDirectory>
+      <RootDirectory>d:\users\dermangold\documents\visual studio 2010\Projects\Kitchen\Kitchen\KitchenContent\</RootDirectory>
+      <LoggerRootDirectory>d:\users\dermangold\documents\visual studio 2010\Projects\Kitchen\Kitchen\Kitchen\</LoggerRootDirectory>
+      <IntermediateDirectory>d:\users\dermangold\documents\visual studio 2010\Projects\Kitchen\Kitchen\KitchenContent\obj\x86\Debug\</IntermediateDirectory>
+      <OutputDirectory>d:\users\dermangold\documents\visual studio 2010\Projects\Kitchen\Kitchen\Kitchen\bin\x86\Debug\Content\</OutputDirectory>
     </Settings>
     <Assemblies>
       <Assembly>

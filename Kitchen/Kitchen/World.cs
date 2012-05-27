@@ -33,6 +33,8 @@ namespace Kitchen
         
         double time;
 
+        float worldSize = 10000.0f;
+
 
         public World(Game game)
             : base(game)
@@ -49,7 +51,7 @@ namespace Kitchen
         /// 
         public override void Initialize()
         {
-            int num = 5000;
+            int num = 10000;
 
             Random random = new Random(num + 1);
 
@@ -58,7 +60,7 @@ namespace Kitchen
             {
                 House house = new House();
 
-                house.origin = new Vector3(random.Next(-5000,5000), random.Next(-50,0), random.Next(-5000,5000));
+                house.origin = new Vector3(random.Next(-(int)worldSize / 2, (int)worldSize / 2), random.Next(-50, 0), random.Next(-(int)worldSize / 2, (int)worldSize / 2));
                 house.rotation = new Vector3((float)random.NextDouble() * MathHelper.Pi, (float)random.NextDouble() / 100.0f, (float)random.NextDouble() / 100.0f);
                 house.scale = (new Vector3((float)random.NextDouble() + 1, 2*(float)random.NextDouble() + 1, (float)random.NextDouble() + 1));
 
@@ -100,7 +102,7 @@ namespace Kitchen
 
         public override void Draw(GameTime gameTime)
         {
-            Vector3 cameraPosition = new Vector3(0, 250+MathHelper.SmoothStep(0,50, (float)(time / 10000)), 5000 - 100 * (float)(time / 1000));
+            Vector3 cameraPosition = new Vector3(0, 250 + MathHelper.SmoothStep(0, 50, (float)(time / worldSize)), worldSize / 2 - 10* (float)(time));
             Vector3 lookAt = new Vector3(0, -0.2f, -1);
             float aspectRatio = GraphicsDevice.Viewport.AspectRatio;
 
@@ -115,15 +117,16 @@ namespace Kitchen
 
             foreach (House house in houses)
             {
-                float lag = house.origin.Z - cameraPosition.Z;
-                int lagComp = (lag % 10000);
+                float lag = MathHelper.Max(0, house.origin.Z - cameraPosition.Z);
+
+                int lagSteps = (int)(lag / worldSize) + 1;
 
                 Model myModel = houseModel;
 
                 Matrix world = Matrix.Identity;
                 world *= Matrix.CreateScale(house.scale);
                 world *= Matrix.CreateFromYawPitchRoll(house.rotation.X, house.rotation.Y, house.rotation.Z);
-                world *= Matrix.CreateTranslation(house.origin.X, house.origin.Y, house.origin.Z);
+                world *= Matrix.CreateTranslation(house.origin.X, house.origin.Y, house.origin.Z - lagSteps * worldSize);
 
                 effect.Parameters["World"].SetValue(world);
 
