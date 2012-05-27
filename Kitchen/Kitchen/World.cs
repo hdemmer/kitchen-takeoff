@@ -102,8 +102,8 @@ namespace Kitchen
 
         public override void Draw(GameTime gameTime)
         {
-            Vector3 cameraPosition = new Vector3(0, 80 + MathHelper.SmoothStep(0, 200, (float)(time / worldSize)+0.11f), worldSize / 2 - 0.9f* (float)(time));
-            Vector3 lookAt = new Vector3(0, -0.2f, -1);
+            Vector3 cameraPosition = new Vector3(0, 80 + MathHelper.SmoothStep(0, 200, (float)(time / worldSize)+0.11f), worldSize / 2 - 0.2f* (float)(time));
+            Vector3 lookAt = new Vector3(-0.01f, -0.2f, -1);
             float aspectRatio = GraphicsDevice.Viewport.AspectRatio;
 
             Matrix view = Matrix.CreateLookAt(cameraPosition, cameraPosition+lookAt, Vector3.Up);
