@@ -20,6 +20,12 @@ namespace Kitchen
         public int meshIndex;
     };
 
+    struct Light
+    {
+        public Vector3 origin;
+        public float intensity;
+    };
+
     /// <summary>
     /// This is a game component that implements IUpdateable.
     /// </summary>
@@ -27,6 +33,7 @@ namespace Kitchen
     {
         public Model houseModel;
         House[] houses;
+        Light[] lights;
         Effect effect;
       
         BigSky sky;
@@ -51,23 +58,40 @@ namespace Kitchen
         /// 
         public override void Initialize()
         {
-            int num = 2000;
+            int houseNum = 1000;
+            int lightNum = 1000;
+            int lightsPerHouse = lightNum / houseNum;
+            Random random = new Random(houseNum + 1);
 
-            Random random = new Random(num + 1);
+            houses = new House[houseNum];
+            lights = new Light[lightNum];
 
-            houses = new House[num];
-            for (int i = 0; i < num; i++)
+            for (int i = 0; i < houseNum; i++)
             {
                 House house = new House();
 
-                house.origin = new Vector3(random.Next(-(int)worldSize / 2, (int)worldSize / 2), random.Next(-50, 0), random.Next(-(int)worldSize / 2, (int)worldSize / 2));
+                house.origin = new Vector3(random.Next(-(int)worldSize / 2, (int)worldSize / 2), random.Next(-50, 0), worldSize - ((float)i / (float)houseNum) * 2.0f * worldSize);
                 house.rotation = new Vector3((float)random.NextDouble() , (float)random.NextDouble() / 100.0f, (float)random.NextDouble() / 100.0f);
                 house.scale = (new Vector3((float)random.NextDouble()*3 + 1, 2*(float)random.NextDouble() + 1, (float)random.NextDouble()*6 + 1));
 
                 house.meshIndex = random.Next(0, 15);
 
                 houses.SetValue(house, i);
+
+                for (int j = 0; j < lightsPerHouse; j++)
+                {
+                    Light light = new Light();
+
+                    light.origin = new Vector3(house.origin.X + random.Next(-100, 100), house.origin.Y + (int)random.Next(0, 10), house.origin.Z +20);
+
+                    light.intensity = 3+(float)random.NextDouble() * 3.0f;
+                    light.intensity = (float)Math.Exp(light.intensity);
+
+                    lights.SetValue(light, i*lightsPerHouse + j);
+                }
+
             }
+           
 
             base.Initialize();
         }
@@ -87,6 +111,28 @@ namespace Kitchen
 
 
             base.LoadContent();
+        }
+
+        public void DrawLight()
+        {
+            VertexPositionTexture[] vertices = new VertexPositionTexture[6];
+
+            vertices[0].Position = new Vector3(1f, 1f, 0f); vertices[0].TextureCoordinate = new Vector2(1, 1);
+            vertices[1].Position = new Vector3(1, -1, 0f); vertices[1].TextureCoordinate = new Vector2(1, 0);
+            vertices[2].Position = new Vector3(-1, 1, 0f); vertices[2].TextureCoordinate = new Vector2(0, 1);
+
+            vertices[3].Position = new Vector3(-1, 1, 0f); vertices[3].TextureCoordinate = new Vector2(0, 1);
+            vertices[4].Position = new Vector3(1, -1, 0f); vertices[4].TextureCoordinate = new Vector2(1, 0);
+            vertices[5].Position = new Vector3(-1, -1, 0f); vertices[5].TextureCoordinate = new Vector2(0, 0);
+
+            GraphicsDevice device = this.GraphicsDevice;
+
+            foreach (EffectPass pass in effect.CurrentTechnique.Passes)
+            {
+                pass.Apply();
+
+                device.DrawUserPrimitives(PrimitiveType.TriangleList, vertices, 0, 2, VertexPositionTexture.VertexDeclaration);
+            }
         }
 
         /// <summary>
@@ -119,6 +165,8 @@ namespace Kitchen
 
             effect.Parameters["World"].SetValue(Matrix.Identity);
 
+            effect.CurrentTechnique = effect.Techniques[0];
+
             VertexPositionColor[] vertices = new VertexPositionColor[3];
 
             vertices[0].Position = new Vector3(cameraPosition.X + worldSize, 0, cameraPosition.Z - worldSize);
@@ -131,8 +179,9 @@ namespace Kitchen
             {
                 pass.Apply();
 
-                device.DrawUserPrimitives(PrimitiveType.TriangleList, vertices, 0, 1, VertexPositionColor.VertexDeclaration);
+                device.DrawUserPrimitives(PrimitiveType.TriangleList, vertices, 0, 1, VertexPositionTexture.VertexDeclaration);
             }
+
 
             // draw houses
             foreach (House house in houses)
@@ -151,6 +200,25 @@ namespace Kitchen
                 effect.Parameters["World"].SetValue(world);
 
                 myModel.Meshes[house.meshIndex].Draw();
+            }
+
+
+            effect.CurrentTechnique = effect.Techniques[1];
+
+            // draw lights
+            foreach (Light light in lights)
+            {
+                float lag = MathHelper.Max(0, light.origin.Z - cameraPosition.Z - 1000);
+
+                int lagSteps = (int)Math.Ceiling(lag / worldSize);
+
+                Matrix world = Matrix.Identity;
+
+                world *= Matrix.CreateScale(10*light.intensity);
+                world *= Matrix.CreateTranslation(light.origin.X, light.origin.Y, light.origin.Z - lagSteps * worldSize);
+
+                effect.Parameters["World"].SetValue(world);
+                DrawLight();
             }
 
             base.Draw(gameTime);
