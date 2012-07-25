@@ -59,7 +59,7 @@ namespace Kitchen
         public override void Initialize()
         {
             int houseNum = 1000;
-            int lightNum = 1000;
+            int lightNum = 10000;
             int lightsPerHouse = lightNum / houseNum;
             Random random = new Random(houseNum + 1);
 
@@ -82,10 +82,11 @@ namespace Kitchen
                 {
                     Light light = new Light();
 
-                    light.origin = new Vector3(house.origin.X + random.Next(-100, 100), house.origin.Y + (int)random.Next(0, 10), house.origin.Z +20);
+                    light.origin = new Vector3(house.origin.X + random.Next(-200, 200), 
+                        house.origin.Y + 15 + random.Next(0, 40),
+                        house.origin.Z - random.Next(80,100));
 
-                    light.intensity = 3+(float)random.NextDouble() * 3.0f;
-                    light.intensity = (float)Math.Exp(light.intensity);
+                    light.intensity = 30+(float)random.NextDouble() * 30.0f;
 
                     lights.SetValue(light, i*lightsPerHouse + j);
                 }
@@ -214,7 +215,7 @@ namespace Kitchen
 
                 Matrix world = Matrix.Identity;
 
-                world *= Matrix.CreateScale(10*light.intensity);
+                world *= Matrix.CreateScale(light.intensity * 0.1f);
                 world *= Matrix.CreateTranslation(light.origin.X, light.origin.Y, light.origin.Z - lagSteps * worldSize);
 
                 effect.Parameters["World"].SetValue(world);
