@@ -59,7 +59,7 @@ namespace Kitchen
         public override void Initialize()
         {
             int houseNum = 1000;
-            int lightNum = 10000;
+            int lightNum = 40000;
             int lightsPerHouse = lightNum / houseNum;
             Random random = new Random(houseNum + 1);
 
@@ -82,8 +82,8 @@ namespace Kitchen
                 {
                     Light light = new Light();
 
-                    light.origin = new Vector3(house.origin.X + random.Next(-200, 200), 
-                        house.origin.Y + 15 + random.Next(0, 40),
+                    light.origin = new Vector3(house.origin.X + random.Next(-200, 200),
+                        house.origin.Y + 10 + (random.Next(0, 40)) * (float)Math.Pow(2, random.Next(0, 1)),
                         house.origin.Z - random.Next(80,100));
 
                     light.intensity = 30+(float)random.NextDouble() * 30.0f;
