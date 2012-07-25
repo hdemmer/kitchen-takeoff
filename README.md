@@ -8,11 +8,11 @@ Uses the excellent 'Death Star Greebles' by [jedilaw](http://www.scifi3d.com/aut
 Screenshots
 -----------
 
-![](https://github.com/hdemmer/kitchen-takeoff/blob/master/whats_cooking3.PNG)
+![](https://github.com/hdemmer/kitchen-takeoff/raw/master/whats_cooking3.PNG)
 
 and two earlier ones
 
-![](https://github.com/hdemmer/kitchen-takeoff/blob/master/whats_cooking2.PNG)
+![](https://github.com/hdemmer/kitchen-takeoff/raw/master/whats_cooking2.PNG)
 
-![](https://github.com/hdemmer/kitchen-takeoff/blob/master/whats_cooking1.PNG)
+![](https://github.com/hdemmer/kitchen-takeoff/raw/master/whats_cooking1.PNG)
 
