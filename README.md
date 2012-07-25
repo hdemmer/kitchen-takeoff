@@ -3,7 +3,7 @@ Kitchen Takeoff
 
 Played around with XNA for a few hours. This code does not use instancing and is thus quite slow.
 
-Uses the exellent 'Death Star Greebles' by [jedilaw](http://www.scifi3d.com/author_details.asp?key=294).
+Uses the excellent 'Death Star Greebles' by [jedilaw](http://www.scifi3d.com/author_details.asp?key=294).
 
 Screenshots
 -----------
